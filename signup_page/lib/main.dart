@@ -117,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     return "Number is required.";
                   }
                   String numPattern =
-                      r'^[0-9]+$'; //Number validation regular expression.
+                      r'^[0-9]+$'; //Phone Number validation regular expression.
                   RegExp regExp = new RegExp(numPattern);
 
                   if (!regExp.hasMatch(value)) {

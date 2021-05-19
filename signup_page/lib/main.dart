@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-          body: SignUpPage(),
+          body: SingleChildScrollView(child: SignUpPage()),
         ));
   }
 }
@@ -35,6 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final node = FocusScope.of(context);
     // ignore: missing_required_param
     return Form(
         key: _formKey,
@@ -65,6 +66,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   }
                   return null;
                 },
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => node.nextFocus(),
               ),
               SizedBox(
                 height: 5.0,
@@ -92,6 +95,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   }
                   return null;
                 },
+
+                // to shift the focus to next textfield or widget.
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => node.nextFocus(),
               ),
               SizedBox(
                 height: 5.0,
@@ -106,17 +113,29 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 validator: (value) {
-                  if (value.length != 10) {
-                    return "Enter 10 digit mobile number.";
+                  if (value.isEmpty) {
+                    return "Number is required.";
+                  }
+                  String numPattern =
+                      r'^[0-9]+$'; //Number validation regular expression.
+                  RegExp regExp = new RegExp(numPattern);
+
+                  if (!regExp.hasMatch(value)) {
+                    return "Invalid number format.";
+                  } else if (value.length < 10 && value.length > 10) {
+                    return "Number should be of 10 digits.";
                   }
                   return null;
                 },
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => node.nextFocus(),
               ),
               SizedBox(
                 height: 5.0,
               ),
               TextFormField(
                 controller: passController,
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: "Create Password",
                   prefixIcon: Icon(Icons.lock),
@@ -139,12 +158,15 @@ class _SignUpPageState extends State<SignUpPage> {
                   }
                   return null;
                 },
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => node.nextFocus(),
               ),
               SizedBox(
                 height: 5.0,
               ),
               TextFormField(
                 controller: confirmPassController,
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: "Confirm Password",
                   prefixIcon: Icon(Icons.lock),
@@ -161,6 +183,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   }
                   return null;
                 },
+                onEditingComplete: () => node.unfocus(),
               ),
               SizedBox(
                 height: 5.0,
@@ -190,7 +213,8 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(
                 height: 5.0,
               ),
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Already have an account?",
@@ -203,7 +227,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: TextStyle(color: Colors.tealAccent[700]),
                       ))
                 ],
-              )
+              ),
             ],
           ),
         ));

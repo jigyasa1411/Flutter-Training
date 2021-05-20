@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,6 +21,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+enum Gender { Male, Female }
+
 class SignUpPage extends StatefulWidget {
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -28,10 +32,14 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
+  Gender _gender = Gender.Male;
+
   TextEditingController nameController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passController = new TextEditingController();
   TextEditingController confirmPassController = new TextEditingController();
+  TextEditingController dateController = new TextEditingController();
+  DateTime selectedDate = new DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -142,6 +150,42 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 10.0,
               ),
               TextFormField(
+                controller: dateController,
+                keyboardType: TextInputType.datetime,
+                decoration: InputDecoration(
+                  hintText: "Date of Birth (yyyy-mm-dd)",
+                  prefixIcon: Padding(
+                    padding: EdgeInsetsDirectional.only(start: 10),
+                    child: Icon(Icons.cake),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+                validator: (dob) {
+                  var ageDiff = selectedDate.difference(DateTime.parse(
+                      dob)); // finding age difference using two dates.
+                  var age =
+                      ((ageDiff.inDays) / 365).round(); // Finding the age.
+
+                  if (dob == null || dob.isEmpty) {
+                    return "Please enter your date of birth.";
+                  }
+
+                  if (age < 13) {
+                    return "Your age is below 13, so you can't register.";
+                  }
+                  return null;
+                },
+
+                // to shift the focus to next textfield or widget.
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => node.nextFocus(),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              TextFormField(
                 controller: passController,
                 obscureText: true,
                 decoration: InputDecoration(
@@ -203,6 +247,50 @@ class _SignUpPageState extends State<SignUpPage> {
               Container(
                 width: 510,
                 height: 60,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 20),
+                    Icon(
+                      Icons.person,
+                      color: Colors.grey[600],
+                    ),
+                    Text(
+                      " Gender: ",
+                      style: TextStyle(color: Colors.grey[600], fontSize: 16),
+                    ),
+                    Text("Male",
+                        style:
+                            TextStyle(color: Colors.grey[600], fontSize: 16)),
+                    Radio(
+                        value: Gender.Male,
+                        groupValue: _gender,
+                        onChanged: (value) {
+                          setState(() {
+                            _gender = value;
+                          });
+                        }),
+                    Text("Female",
+                        style:
+                            TextStyle(color: Colors.grey[600], fontSize: 16)),
+                    Radio(
+                        value: Gender.Female,
+                        groupValue: _gender,
+                        onChanged: (value) {
+                          setState(() {
+                            _gender = value;
+                          });
+                        }),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10.0),
+              Container(
+                width: 510,
+                height: 60,
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
@@ -222,6 +310,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ))),
                 ),
               ),
+
               /*SizedBox(
                 height: 5.0,
               ),*/

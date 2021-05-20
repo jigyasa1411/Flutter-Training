@@ -40,22 +40,25 @@ class _SignUpPageState extends State<SignUpPage> {
     return Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.all(50),
+          padding:
+              const EdgeInsets.only(left: 30, right: 30, top: 100, bottom: 20),
           child: Column(
             children: [
               Image.asset(
                 "assets/successiveLogo.png",
-                height: 100.0,
-                width: 100.0,
+                height: 80.0,
+                width: 80.0,
               ),
               SizedBox(
-                height: 5.0,
+                height: 30.0,
               ),
               TextFormField(
                 controller: nameController,
                 decoration: InputDecoration(
                   hintText: "Full Name",
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: Padding(
+                      padding: EdgeInsetsDirectional.only(start: 10),
+                      child: Icon(Icons.person)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
@@ -70,13 +73,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 onEditingComplete: () => node.nextFocus(),
               ),
               SizedBox(
-                height: 5.0,
+                height: 10.0,
               ),
               TextFormField(
                 controller: emailController,
                 decoration: InputDecoration(
                   hintText: "Email",
-                  prefixIcon: Icon(Icons.email),
+                  prefixIcon: Padding(
+                    padding: EdgeInsetsDirectional.only(start: 10),
+                    child: Icon(Icons.email),
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
@@ -101,13 +107,15 @@ class _SignUpPageState extends State<SignUpPage> {
                 onEditingComplete: () => node.nextFocus(),
               ),
               SizedBox(
-                height: 5.0,
+                height: 10.0,
               ),
               TextFormField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: "Phone Number",
-                  prefixIcon: Icon(Icons.phone),
+                  prefixIcon: Padding(
+                      padding: EdgeInsetsDirectional.only(start: 10),
+                      child: Icon(Icons.phone)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
@@ -122,7 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                   if (!regExp.hasMatch(value)) {
                     return "Invalid number format.";
-                  } else if (value.length < 10 && value.length > 10) {
+                  } else if (value.length < 10 || value.length > 10) {
                     return "Number should be of 10 digits.";
                   }
                   return null;
@@ -131,14 +139,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 onEditingComplete: () => node.nextFocus(),
               ),
               SizedBox(
-                height: 5.0,
+                height: 10.0,
               ),
               TextFormField(
                 controller: passController,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: "Create Password",
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Padding(
+                      padding: EdgeInsetsDirectional.only(start: 10),
+                      child: Icon(Icons.lock)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
@@ -162,14 +172,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 onEditingComplete: () => node.nextFocus(),
               ),
               SizedBox(
-                height: 5.0,
+                height: 10.0,
               ),
               TextFormField(
                 controller: confirmPassController,
                 obscureText: true,
                 decoration: InputDecoration(
                   hintText: "Confirm Password",
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: Padding(
+                      padding: EdgeInsetsDirectional.only(start: 10),
+                      child: Icon(Icons.lock)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
@@ -186,7 +198,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 onEditingComplete: () => node.unfocus(),
               ),
               SizedBox(
-                height: 5.0,
+                height: 10.0,
               ),
               Container(
                 width: 510,
@@ -202,17 +214,17 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: TextStyle(color: Colors.black),
                   ),
                   style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.tealAccent[700]),
+                      backgroundColor: MaterialStateProperty.all(
+                          Color.fromRGBO(27, 213, 210, 10)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(80.0),
                       ))),
                 ),
               ),
-              SizedBox(
+              /*SizedBox(
                 height: 5.0,
-              ),
+              ),*/
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -224,7 +236,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: () {},
                       child: Text(
                         "Sign In",
-                        style: TextStyle(color: Colors.tealAccent[700]),
+                        style: TextStyle(
+                            color: Colors.blue, fontWeight: FontWeight.bold),
                       ))
                 ],
               ),

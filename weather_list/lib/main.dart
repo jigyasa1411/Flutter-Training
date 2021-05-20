@@ -19,6 +19,59 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class WeatherClass {
+  String city;
+  String currentWeather;
+  String weatherImage;
+  String temperature;
+
+  WeatherClass(
+      {this.city, this.currentWeather, this.weatherImage, this.temperature});
+}
+
+List<WeatherClass> place = [
+  WeatherClass(
+      city: "Berlin",
+      currentWeather: "Snowing",
+      weatherImage: "assets/snow.png",
+      temperature: "-02\u00b0 C"),
+  WeatherClass(
+      city: "Bangalore",
+      currentWeather: "Thunderstorms",
+      weatherImage: "assets/thunder.png",
+      temperature: "23\u00b0 C"),
+  WeatherClass(
+      city: "London",
+      currentWeather: "Rainy",
+      weatherImage: "assets/rain.png",
+      temperature: "15\u00b0C"),
+  WeatherClass(
+      city: "NewYork",
+      currentWeather: "Cloudy",
+      weatherImage: "assets/cloudy.png",
+      temperature: "18\u00b0 C"),
+  WeatherClass(
+      city: "LasVegas",
+      currentWeather: "Overcast",
+      weatherImage: "assets/overcast.png",
+      temperature: "18\u00b0C"),
+  WeatherClass(
+      city: "Sydney",
+      currentWeather: "Sunny",
+      weatherImage: "assets/sunny.png",
+      temperature: "32\u00b0 C"),
+  WeatherClass(
+      city: "Kolkata",
+      currentWeather: "Sunny",
+      weatherImage: "assets/sunny.png",
+      temperature: "33\u00b0 C"),
+  WeatherClass(
+      city: "Mumbai",
+      currentWeather: "Rainy",
+      weatherImage: "assets/rain.png",
+      temperature: "23\u00b0 C"),
+];
+
 class WeatherList extends StatefulWidget {
   @override
   _WeatherListState createState() => _WeatherListState();
@@ -34,140 +87,63 @@ class _WeatherListState extends State<WeatherList> {
         toolbarHeight: 40,
         title: Text("Weather Information"),
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            leading: Container(
-              child: Image.asset(
-                "assets/snow.png",
-                height: 200,
+      body: ListView.builder(
+          itemCount: place.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding:
+                  const EdgeInsets.only(bottom: 0, top: 0, left: 0, right: 0),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.grey),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(215, 221, 222, 1),
+                        Color.fromRGBO(205, 205, 205, 1),
+                      ],
+                    )),
+                height: 100,
                 width: 100,
+                child: Row(
+                  children: [
+                    SizedBox(width: 20),
+                    Image.asset(
+                      place[index].weatherImage,
+                      height: 60,
+                      width: 60,
+                    ),
+                    SizedBox(width: 30),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          Text(
+                            place[index].city,
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                          Text(place[index].currentWeather)
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 60),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 0),
+                      child: Text(
+                        place[index].temperature,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 40,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            title: Text(
-              "Berlin",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            subtitle: Text("Snowy", style: TextStyle(fontSize: 20)),
-            trailing: Text("0\u00b0 C", style: TextStyle(fontSize: 40)),
-          ),
-          Divider(thickness: 2),
-          SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            leading: SizedBox(
-              child: Image.asset(
-                "assets/thunder.png",
-                height: 200,
-                width: 100,
-              ),
-            ),
-            title: Text(
-              "Bangalore",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            subtitle: Text("Thunderstorm", style: TextStyle(fontSize: 20)),
-            trailing: Text("23\u00b0 C", style: TextStyle(fontSize: 40)),
-          ),
-          Divider(thickness: 2),
-          SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            leading: SizedBox(
-              child: Image.asset(
-                "assets/rain.png",
-                height: 200,
-                width: 100,
-              ),
-            ),
-            title: Text(
-              "London",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            subtitle: Text("Rainy", style: TextStyle(fontSize: 20)),
-            trailing: Text("5\u00b0 C", style: TextStyle(fontSize: 40)),
-          ),
-          Divider(thickness: 2),
-          SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            leading: SizedBox(
-              child: Image.asset(
-                "assets/cloudy.png",
-                height: 200,
-                width: 100,
-              ),
-            ),
-            title: Text(
-              "New York",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            subtitle: Text("Cloudy", style: TextStyle(fontSize: 20)),
-            trailing: Text("18\u00b0 C", style: TextStyle(fontSize: 40)),
-          ),
-          Divider(thickness: 2),
-          SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            leading: SizedBox(
-              child: Image.asset(
-                "assets/sunny.png",
-                height: 200,
-                width: 100,
-              ),
-            ),
-            title: Text(
-              "Sydney",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            subtitle: Text("Sunny", style: TextStyle(fontSize: 20)),
-            trailing: Text("32\u00b0 C", style: TextStyle(fontSize: 40)),
-          ),
-          Divider(thickness: 2),
-          SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            leading: SizedBox(
-              child: Image.asset(
-                "assets/overcast.png",
-                height: 200,
-                width: 100,
-              ),
-            ),
-            title: Text(
-              "Delhi",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            subtitle: Text("Overcast", style: TextStyle(fontSize: 20)),
-            trailing: Text("32\u00b0 C", style: TextStyle(fontSize: 40)),
-          ),
-          Divider(thickness: 2),
-          SizedBox(
-            height: 20,
-          ),
-          ListTile(
-            leading: SizedBox(
-              child: Image.asset(
-                "assets/windy.png",
-                height: 200,
-                width: 100,
-              ),
-            ),
-            title: Text(
-              "Florida",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-            ),
-            subtitle: Text("Windy", style: TextStyle(fontSize: 20)),
-            trailing: Text("22\u00b0 C", style: TextStyle(fontSize: 40)),
-          ),
-          Divider(thickness: 2),
-        ],
-      ),
+            );
+          }),
     );
   }
 }

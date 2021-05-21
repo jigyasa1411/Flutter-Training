@@ -39,7 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passController = new TextEditingController();
   TextEditingController confirmPassController = new TextEditingController();
-  TextEditingController dateController = new TextEditingController();
+  TextEditingController phoneController = new TextEditingController();
   DateTime _birthDate;
 
   @override
@@ -120,6 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               TextFormField(
                 keyboardType: TextInputType.phone,
+                controller: phoneController,
                 decoration: InputDecoration(
                   hintText: "Phone Number",
                   prefixIcon: Padding(
@@ -156,11 +157,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 decoration: InputDecoration(
                   hintText: "Date of Birth",
                   prefixIcon: Container(
-                    padding: EdgeInsetsDirectional.only(start: 5),
+                    padding: EdgeInsetsDirectional.only(start: 0),
                     child: Row(
                       children: [
-                        // Icon(Icons.cake),
-
                         TextButton(
                             child: Icon(
                               Icons.calendar_today,
@@ -317,7 +316,14 @@ class _SignUpPageState extends State<SignUpPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      debugPrint("Account Created!!");
+                      debugPrint("Details are validated!!");
+                      debugPrint("Full Name: " + nameController.text);
+                      debugPrint("Email ID: " + emailController.text);
+                      debugPrint("Date of Birth: " + _birthDate.toString());
+                      debugPrint("Gender: " + _gender.toString());
+
+                      print("Phone Number: " + phoneController.text.toString());
+                      debugPrint("Account Created!!!!!!!");
                     }
                   },
                   child: Text(

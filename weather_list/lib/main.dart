@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -34,12 +36,12 @@ List<WeatherClass> place = [
       city: "Berlin",
       currentWeather: "Snowing",
       weatherImage: "assets/snow.png",
-      temperature: "-02\u00b0 C"),
+      temperature: "-02\u00b0C"),
   WeatherClass(
       city: "Bangalore",
       currentWeather: "Thunderstorms",
       weatherImage: "assets/thunder.png",
-      temperature: "23\u00b0 C"),
+      temperature: "23\u00b0C"),
   WeatherClass(
       city: "London",
       currentWeather: "Rainy",
@@ -49,7 +51,7 @@ List<WeatherClass> place = [
       city: "NewYork",
       currentWeather: "Cloudy",
       weatherImage: "assets/cloudy.png",
-      temperature: "18\u00b0 C"),
+      temperature: "18\u00b0C"),
   WeatherClass(
       city: "LasVegas",
       currentWeather: "Overcast",
@@ -59,17 +61,17 @@ List<WeatherClass> place = [
       city: "Sydney",
       currentWeather: "Sunny",
       weatherImage: "assets/sunny.png",
-      temperature: "32\u00b0 C"),
+      temperature: "32\u00b0C"),
   WeatherClass(
       city: "Kolkata",
       currentWeather: "Sunny",
       weatherImage: "assets/sunny.png",
-      temperature: "33\u00b0 C"),
+      temperature: "33\u00b0C"),
   WeatherClass(
       city: "Mumbai",
       currentWeather: "Rainy",
       weatherImage: "assets/rain.png",
-      temperature: "23\u00b0 C"),
+      temperature: "23\u00b0C"),
 ];
 
 class WeatherList extends StatefulWidget {
@@ -102,6 +104,7 @@ class _WeatherListState extends State<WeatherList> {
                       colors: [
                         Color.fromRGBO(215, 221, 222, 1),
                         Color.fromRGBO(205, 205, 205, 1),
+                        Colors.grey,
                       ],
                     )),
                 height: 100,
@@ -128,16 +131,23 @@ class _WeatherListState extends State<WeatherList> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 60),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: Text(
-                        place[index].temperature,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: 40,
+                    //SizedBox(width: 60),
+                    Spacer(flex: 1),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+                      //padding: const EdgeInsets.only(left: 0),
+                      children: [
+                        Text(
+                          place[index].temperature,
+                          //textAlign: TextAlign.left,
+
+                          style: TextStyle(
+                            fontSize: 40,
+                          ),
                         ),
-                      ),
+                        Image.asset("assets/icon.png", height: 20, width: 20),
+                      ],
                     ),
                   ],
                 ),

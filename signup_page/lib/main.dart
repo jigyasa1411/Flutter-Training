@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+//import 'package:flutter/src/material/date_picker.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController passController = new TextEditingController();
   TextEditingController confirmPassController = new TextEditingController();
   TextEditingController dateController = new TextEditingController();
-  DateTime selectedDate = new DateTime.now();
+  DateTime _birthDate;
 
   @override
   Widget build(BuildContext context) {
@@ -150,25 +151,46 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 10.0,
               ),
               TextFormField(
-                controller: dateController,
-                keyboardType: TextInputType.datetime,
+                //controller: dateController,
+                //keyboardType: TextInputType.datetime,
                 decoration: InputDecoration(
-                  hintText: "Date of Birth (yyyy-mm-dd)",
-                  prefixIcon: Padding(
-                    padding: EdgeInsetsDirectional.only(start: 10),
-                    child: Icon(Icons.cake),
+                  hintText: "Date of Birth",
+                  prefixIcon: Container(
+                    padding: EdgeInsetsDirectional.only(start: 5),
+                    child: Row(
+                      children: [
+                        // Icon(Icons.cake),
+
+                        TextButton(
+                            child: Icon(
+                              Icons.calendar_today,
+                              color: Colors.grey[600],
+                            ),
+                            onPressed: () {
+                              showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1970),
+                                      lastDate: DateTime(2022))
+                                  .then((date) {
+                                setState(() {
+                                  _birthDate = date;
+                                });
+                              });
+                            }),
+                        Text(_birthDate == null
+                            ? "Date of Birth"
+                            : _birthDate.toString()),
+                      ],
+                    ),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
-                validator: (dob) {
-                  var ageDiff = selectedDate.difference(DateTime.parse(
-                      dob)); // finding age difference using two dates.
-                  var age =
-                      ((ageDiff.inDays) / 365).round(); // Finding the age.
-
-                  if (dob == null || dob.isEmpty) {
+                validator: (date) {
+                  int age = (DateTime.now().year - _birthDate.year);
+                  if (_birthDate == null) {
                     return "Please enter your date of birth.";
                   }
 
@@ -179,6 +201,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
 
                 // to shift the focus to next textfield or widget.
+
                 textInputAction: TextInputAction.next,
                 onEditingComplete: () => node.nextFocus(),
               ),

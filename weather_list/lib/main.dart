@@ -146,7 +146,6 @@ class _WeatherListState extends State<WeatherList> {
                             fontSize: 40,
                           ),
                         ),
-                        Image.asset("assets/icon.png", height: 20, width: 20),
                       ],
                     ),
                   ],

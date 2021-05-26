@@ -65,7 +65,7 @@ class _WeatherListState extends State<WeatherList> {
     return Scaffold(
       backgroundColor: Colors.grey[400],
       appBar: AppBar(
-        backgroundColor: Colors.grey[700],
+        backgroundColor: Colors.grey[500],
         toolbarHeight: 40,
         title: Text("Weather Information"),
       ),
@@ -75,65 +75,115 @@ class _WeatherListState extends State<WeatherList> {
             return Padding(
               padding:
                   const EdgeInsets.only(bottom: 0, top: 0, left: 0, right: 0),
-              child: Container(
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.grey),
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color.fromRGBO(215, 221, 222, 1),
-                        Color.fromRGBO(205, 205, 205, 1),
-                        Colors.grey,
-                      ],
-                    )),
-                height: 100,
-                width: 100,
-                child: Row(
-                  children: [
-                    SizedBox(width: 20),
-                    Image.asset(
-                      place[index].weatherImage,
-                      height: 60,
-                      width: 60,
-                    ),
-                    SizedBox(width: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Column(
+              child: InkWell(
+                onTap: () {
+                  print("Information");
+                  print("City: " + place[index].city);
+                  print("Temperature: " + place[index].temperature);
+                  print("Current Weather: " + place[index].currentWeather);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.grey),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color.fromRGBO(215, 221, 222, 1),
+                          //Color.fromRGBO(205, 205, 205, 1),
+                          Color.fromRGBO(217, 221, 223, 1),
+                          Color.fromRGBO(202, 203, 202, 1),
+                        ],
+                      )),
+                  height: 100,
+                  width: 100,
+                  child: Row(
+                    children: [
+                      SizedBox(width: 20),
+                      InkWell(
+                        onTap: () {
+                          print("Image of a " +
+                              place[index].currentWeather +
+                              " day.");
+                        },
+                        child: Image.asset(
+                          place[index].weatherImage,
+                          height: 60,
+                          width: 60,
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                print("City: " +
+                                    place[index]
+                                        .city); // City name will be printed on console when text will be tapped.
+                              },
+                              child: Text(
+                                place[index].city,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  print("Current Weather is " +
+                                      place[index]
+                                          .currentWeather); // Current weather will be printed on console when text will be tapped.
+                                },
+                                child: Text(
+                                  place[index].currentWeather,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(fontSize: 20),
+                                ))
+                          ],
+                        ),
+                      ),
+                      //SizedBox(width: 60),
+                      Spacer(flex: 1),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+
+                        //padding: const EdgeInsets.only(left: 0),
                         children: [
-                          Text(
-                            place[index].city,
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                          InkWell(
+                            onTap: () {
+                              print("Temperature is " +
+                                  place[index]
+                                      .temperature); // Temperature will be printed on console when text will be tapped.
+                            },
+                            child: Text(
+                              place[index].temperature,
+                              //textAlign: TextAlign.left,
+
+                              style: TextStyle(
+                                  fontSize: 40, color: Colors.grey[800]),
+                            ),
                           ),
-                          Text(place[index].currentWeather)
+                          SizedBox(width: 15),
+                          InkWell(
+                            onTap: () {
+                              print(
+                                  "Arrow icon tapped"); //Tapped message will be printed on console when text will be tapped.
+                            },
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                              color: Colors.grey[700],
+                            ),
+                          )
                         ],
                       ),
-                    ),
-                    //SizedBox(width: 60),
-                    Spacer(flex: 1),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-
-                      //padding: const EdgeInsets.only(left: 0),
-                      children: [
-                        Text(
-                          place[index].temperature,
-                          //textAlign: TextAlign.left,
-
-                          style:
-                              TextStyle(fontSize: 40, color: Colors.grey[800]),
-                        ),
-                        SizedBox(width: 15),
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          size: 15,
-                          color: Colors.grey[700],
-                        )
-                      ],
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             );

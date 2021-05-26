@@ -3,6 +3,17 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:project1/screens/login_page.dart';
 import "package:intl/intl.dart";
+import 'package:shared_preferences/shared_preferences.dart';
+
+SharedPreferences sharedPreference;
+final emailController = TextEditingController();
+final passController = TextEditingController();
+
+save() async {
+  await _SignUpPageState.init();
+  sharedPreference.setString('email', emailController.text.toString());
+  sharedPreference.setString('password', passController.text.toString());
+}
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -23,6 +34,10 @@ class _SignUpPageState extends State<SignUpPage> {
   DateFormat dateFormat = DateFormat("yyyy-MM-dd");
 
   Gender _gender = Gender.Male;
+
+  static init() async {
+    sharedPreference = await SharedPreferences.getInstance();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,52 +148,82 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(
                 height: 10.0,
               ),
+              /* InkWell(
+                child: Container(
+                  width: 510,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Row(
+                    children: [
+                      SizedBox(width: 15),
+                      Icon(
+                        Icons.calendar_today,
+                        color: Colors.grey[600],
+                      ),
+                      Text(
+                        _birthDate == null
+                            ? "Date of Birth"
+                            : dateFormat.format(_birthDate).toString(),
+                        style: TextStyle(color: Colors.grey[700], fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1970),
+                          lastDate: DateTime(2025))
+                      .then((date) {
+                    setState(() {
+                      _birthDate = date;
+                      int age = (DateTime.now().year - _birthDate.year);
+                      if (_birthDate == null) {
+                        return "Please enter your date of birth.";
+                      }
+
+                      if (age < 13) {
+                        return "Your age is below 13, so you can't register.";
+                      }
+                      return _birthDate;
+                    });
+                  });
+                },
+              ),*/
               TextFormField(
                 //controller: dateController,
                 //keyboardType: TextInputType.datetime,
                 decoration: InputDecoration(
-                  hintText: "Date of Birth",
-                  prefixIcon: Container(
-                    padding: EdgeInsetsDirectional.only(start: 0),
-                    child: Row(
-                      children: [
-                        TextButton(
-                            child: Icon(
-                              Icons.calendar_today,
-                              color: Colors.grey[600],
-                            ),
-                            onPressed: () {
-                              showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime.now(),
-                                      firstDate: DateTime(1970),
-                                      lastDate: DateTime(2025))
-                                  .then((date) {
-                                setState(() {
-                                  _birthDate = date;
-                                });
-                              });
-                            }),
-                        Text(
-                          _birthDate == null
-                              ? "Date of Birth"
-                              : dateFormat.format(_birthDate).toString(),
-                          style:
-                              TextStyle(color: Colors.grey[700], fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  ),
+                  hintText: _birthDate == null
+                      ? 'Date Of Birth'
+                      : dateFormat.format(_birthDate).toString(),
+                  hintStyle: TextStyle(color: Colors.grey[600]),
+                  prefixIcon: Icon(Icons.calendar_today),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
+                onTap: () {
+                  showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1970),
+                          lastDate: DateTime(2025))
+                      .then((date) {
+                    setState(() {
+                      _birthDate = date;
+                    });
+                  });
+                },
                 validator: (date) {
-                  int age = (DateTime.now().year - _birthDate.year);
                   if (_birthDate == null) {
                     return "Please enter your date of birth.";
                   }
-
+                  int age = (DateTime.now().year - _birthDate.year);
                   if (age < 13) {
                     return "Your age is below 13, so you can't register.";
                   }

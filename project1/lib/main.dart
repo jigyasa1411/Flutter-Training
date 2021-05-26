@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'screens/signup_page.dart';
 import 'screens/weather_list.dart';
-import 'screens/login_page.dart';
-//import 'screens/login.dart';
+//import 'screens/login_page.dart';
+import 'screens/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,6 +29,7 @@ class DrawerClass extends StatefulWidget {
 
 class _DrawClassState extends State<DrawerClass> {
   final _key = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,13 +60,19 @@ class _DrawClassState extends State<DrawerClass> {
             TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                      MaterialPageRoute(builder: (context) => Login()));
                 },
                 child: Text("Log In")),
             TextButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                      MaterialPageRoute(builder: (context) => Login()));
+                },
+                child: Text("Successive Technologies Log In")),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Login()));
                 },
                 child: Text("Sign Out")),
           ],

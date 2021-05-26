@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:project1/screens/login_page.dart';
+import 'package:project1/screens/login.dart';
 import "package:intl/intl.dart";
+import 'package:project1/screens/weather_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences sharedPreference;
@@ -20,7 +21,6 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-//TextEditingController nameController = new TextEditingController();
 enum Gender { Male, Female }
 
 class _SignUpPageState extends State<SignUpPage> {
@@ -148,52 +148,6 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(
                 height: 10.0,
               ),
-              /* InkWell(
-                child: Container(
-                  width: 510,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 15),
-                      Icon(
-                        Icons.calendar_today,
-                        color: Colors.grey[600],
-                      ),
-                      Text(
-                        _birthDate == null
-                            ? "Date of Birth"
-                            : dateFormat.format(_birthDate).toString(),
-                        style: TextStyle(color: Colors.grey[700], fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1970),
-                          lastDate: DateTime(2025))
-                      .then((date) {
-                    setState(() {
-                      _birthDate = date;
-                      int age = (DateTime.now().year - _birthDate.year);
-                      if (_birthDate == null) {
-                        return "Please enter your date of birth.";
-                      }
-
-                      if (age < 13) {
-                        return "Your age is below 13, so you can't register.";
-                      }
-                      return _birthDate;
-                    });
-                  });
-                },
-              ),*/
               TextFormField(
                 //controller: dateController,
                 //keyboardType: TextInputType.datetime,
@@ -356,6 +310,11 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       print("Phone Number: " + phoneController.text.toString());
                       debugPrint("Account Created!!!!!!!");
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WeatherList()));
                     }
                   },
                   child: Text(
@@ -384,10 +343,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()));
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
                       },
                       child: Text(
                         "Sign In",

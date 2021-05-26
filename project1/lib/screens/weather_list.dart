@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'login_page.dart';
+import 'signup_page.dart';
+import 'login.dart';
 
 class WeatherClass {
   String city;
@@ -60,14 +63,70 @@ class WeatherList extends StatefulWidget {
 }
 
 class _WeatherListState extends State<WeatherList> {
+  final _key = GlobalKey<ScaffoldState>();
+  SharedPreferences sharedPreferences;
+  String username;
+  String password;
+  void initState() {
+    super.initState();
+    initial();
+  }
+
+  void initial() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      username = sharedPreferences.getString('username');
+      password = sharedPreferences.getString('password');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       backgroundColor: Colors.grey[400],
       appBar: AppBar(
         backgroundColor: Colors.grey[500],
         toolbarHeight: 40,
         title: Text("Weather Information"),
+      ),
+      drawer: SafeArea(
+        child: Drawer(
+            child: Column(
+          children: [
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SignUpPage()));
+                },
+                child: Text("SignUp")),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => WeatherList()));
+                },
+                child: Text("WeatherList")),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+                child: Text("Log In")),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Login()));
+                },
+                child: Text("Successive Technologies Log In")),
+            TextButton(
+                onPressed: () {
+                  sharedPreferences.setBool('login', true);
+                  Navigator.pushReplacement(context,
+                      new MaterialPageRoute(builder: (context) => Login()));
+                },
+                child: Text("Sign Out")),
+          ],
+        )),
       ),
       body: ListView.builder(
           itemCount: place.length,

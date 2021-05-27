@@ -18,12 +18,16 @@ class _LoginState extends State<Login> {
 
   final emailController = TextEditingController();
   final passController = TextEditingController();
+
+  @override
   void initState() {
     super.initState();
-    checkIfAlreadyLogin();
+    checkIfAlreadyLogin().then((value) {
+      setState(() {});
+    });
   }
 
-  void checkIfAlreadyLogin() async {
+  Future checkIfAlreadyLogin() async {
     sharedPreferences = await SharedPreferences.getInstance();
     user = (sharedPreferences.getBool('login') ?? true);
     print(user);

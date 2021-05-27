@@ -4,6 +4,8 @@ import 'screens/signup_page.dart';
 import 'screens/weather_list.dart';
 import 'screens/login_page.dart';
 import 'screens/login.dart';
+//import 'screens/homepage.dart';
+import 'dart:async';
 
 void main() {
   runApp(MyApp());
@@ -17,10 +19,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Login(),
+      home: DrawerClass(),
     );
   }
 }
+
+SharedPreferences sharedPreferences;
 
 class DrawerClass extends StatefulWidget {
   // This widget is the root of your application.
@@ -41,8 +45,21 @@ class _DrawClassState extends State<DrawerClass> {
   void initial() async {
     sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
-      username = sharedPreferences.getString('username');
+      username = sharedPreferences.getString('email');
       password = sharedPreferences.getString('password');
+    });
+  }
+
+  Future<Widget> goToLogin() async {
+    return Future.delayed(
+        Duration(
+            seconds:
+                1), // The page will wait for 1 second for future function to get executed.
+        () {
+      // Navigating to the login page after waiting for 1 second.
+      Navigator.pushReplacement(
+          context, new MaterialPageRoute(builder: (context) => Login()));
+      return Text("Done");
     });
   }
 
@@ -57,7 +74,14 @@ class _DrawClassState extends State<DrawerClass> {
           onPressed: () => _key.currentState.openDrawer(),
         ),
       ),
-      body: Container(),
+      body: FutureBuilder(
+        builder: (context, snapshot) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+        future: goToLogin(), //Future function
+      ),
       drawer: SafeArea(
         child: Drawer(
             child: Column(

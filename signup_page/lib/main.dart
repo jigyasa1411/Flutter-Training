@@ -284,9 +284,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       " Gender: ",
                       style: TextStyle(color: Colors.grey[600], fontSize: 16),
                     ),
-                    Text("Male",
-                        style:
-                            TextStyle(color: Colors.grey[600], fontSize: 16)),
                     Radio(
                         value: Gender.Male,
                         groupValue: _gender,
@@ -295,7 +292,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             _gender = value;
                           });
                         }),
-                    Text("Female",
+                    Text("Male",
                         style:
                             TextStyle(color: Colors.grey[600], fontSize: 16)),
                     Radio(
@@ -306,6 +303,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             _gender = value;
                           });
                         }),
+                    Text("Female",
+                        style:
+                            TextStyle(color: Colors.grey[600], fontSize: 16)),
                   ],
                 ),
               ),

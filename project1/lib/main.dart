@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'screens/signup_page.dart';
+//import 'screens/signup_page.dart';
 import 'screens/weather_list.dart';
-import 'screens/login_page.dart';
+//import 'screens/login_page.dart';
 import 'screens/login.dart';
 //import 'screens/homepage.dart';
 import 'dart:async';
@@ -50,75 +50,48 @@ class _DrawClassState extends State<DrawerClass> {
     });
   }
 
-  Future<Widget> goToLogin() async {
-    return Future.delayed(
-        Duration(
-            seconds:
-                1), // The page will wait for 1 second for future function to get executed.
-        () {
-      // Navigating to the login page after waiting for 1 second.
-      Navigator.pushReplacement(
-          context, new MaterialPageRoute(builder: (context) => Login()));
-      return Text("Done");
-    });
+  Future<Widget> currentLoginPageStatus() async {
+    String user;
+    sharedPreferences = await SharedPreferences.getInstance();
+    user = sharedPreferences.get('login').toString();
+
+    if (user == 'null') {
+      return Login();
+    } else if (user == 'false')
+      return WeatherList();
+    else {
+      return Login();
+    }
+  }
+
+  Future<Widget> goToLoginPage() async {
+    // return Future.delayed(
+    //     Duration(
+    //         seconds:
+    //             0), // The page will wait for 1 second for future function to get executed.
+    //     () {
+    //   // Navigating to the login page after waiting for 1 second.
+
+    //   return currentLoginPageStatus();
+    // });
+    return currentLoginPageStatus();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _key,
-      appBar: AppBar(
-        title: Text("Home Page"),
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () => _key.currentState.openDrawer(),
-        ),
-      ),
       body: FutureBuilder(
+        future: goToLoginPage(),
         builder: (context, snapshot) {
+          if (snapshot.data != null) {
+            return snapshot.data;
+          }
           return Center(
             child: CircularProgressIndicator(),
           );
         },
-        future: goToLogin(), //Future function
-      ),
-      drawer: SafeArea(
-        child: Drawer(
-            child: Column(
-          children: [
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignUpPage()));
-                },
-                child: Text("SignUp")),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => WeatherList()));
-                },
-                child: Text("WeatherList")),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                },
-                child: Text("Log In")),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Login()));
-                },
-                child: Text("Successive Technologies Log In")),
-            TextButton(
-                onPressed: () {
-                  sharedPreferences.setBool('login', true);
-                  Navigator.pushReplacement(context,
-                      new MaterialPageRoute(builder: (context) => Login()));
-                },
-                child: Text("Sign Out")),
-          ],
-        )),
+        //Future function
       ),
     );
   }

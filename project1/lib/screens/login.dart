@@ -14,7 +14,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   SharedPreferences sharedPreferences;
-  bool user = false;
 
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -28,15 +27,16 @@ class _LoginState extends State<Login> {
   }
 
   Future checkIfAlreadyLogin() async {
+    String user;
     sharedPreferences = await SharedPreferences.getInstance();
-    user = (sharedPreferences.getBool('login') ?? true);
-    print(user);
-    if (user == true) {
+    user = (sharedPreferences.get('login')).toString();
+
+    if (user == 'true') {
       print("You are not logged in.");
     } else {
       print("You are already logged in.");
     }
-    if (user == false) {
+    if (user == 'false') {
       Navigator.pushReplacement(
           context, new MaterialPageRoute(builder: (context) => WeatherList()));
     }
@@ -172,15 +172,11 @@ class _LoginState extends State<Login> {
 
                                   if ((username != '' && password != '') &&
                                       _formKey.currentState.validate()) {
-                                    print('Login Successfull');
-                                    sharedPreferences.setBool('login', false);
                                     sharedPreferences.setString(
-                                        'username', username);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                WeatherList()));
+                                        'login', 'false');
+                                    checkIfAlreadyLogin();
+
+                                    print('Login Successfull');
                                   }
                                 },
                                 child: Text(

@@ -1,10 +1,10 @@
 class Person {
   String _fullName;
   String _email;
-  double _phoneNumber;
+  String _phoneNumber;
   String _password;
   //String _confirmPassword;
-  DateTime _birthDate;
+  String _birthDate;
   String _gender;
 
   Person(
@@ -20,9 +20,9 @@ class Person {
 // Getter
   String get fullName => _fullName;
   String get email => _email;
-  double get phoneNumber => _phoneNumber;
+  String get phoneNumber => _phoneNumber;
   String get password => _password;
-  DateTime get birthDate => _birthDate;
+  String get birthDate => _birthDate;
   String get gender => _gender;
 
 //Setter
@@ -38,7 +38,7 @@ class Person {
     }
   }
 
-  set phoneNumber(double newPhoneNumber) {
+  set phoneNumber(String newPhoneNumber) {
     this._phoneNumber = newPhoneNumber;
   }
 
@@ -48,7 +48,7 @@ class Person {
     }
   }
 
-  set birthDate(DateTime newBirthDate) {
+  set birthDate(String newBirthDate) {
     this._birthDate = newBirthDate;
   }
 

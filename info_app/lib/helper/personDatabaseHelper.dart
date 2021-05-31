@@ -10,7 +10,7 @@ class PersonDatabaseHelper {
 
   static Database _database;
 
-  String personTable = 'person_table';
+  String personTable = 'personTable';
   String personFullName = 'fullName';
   String personEmail = 'email';
   String personPhoneNumber = 'phoneNumber';
@@ -47,13 +47,17 @@ class PersonDatabaseHelper {
     var personDatabase =
         await openDatabase(path, version: 1, onCreate: _createDb);
     print("Database Created");
+
+    // _createDb(personDatabase, 1);
+    // print("Table created");
+
     return personDatabase;
   }
 
   // Function for creating a Database,
   void _createDb(Database db, int newVersion) async {
     await db.execute(
-        'CREATE TABLE personTable(personFullName TEXT, personEmail TEXT PRIMARY KEY, personPhoneNumber INT UNIQUE KEY, personPassword VARCHAR, personBirthDate DATE, personGender TEXT)');
+        'CREATE TABLE personTable ($personFullName TEXT, $personEmail VARCHAR PRIMARY KEY, $personPhoneNumber TEXT UNIQUE, $personPassword VARCHAR, $personBirthDate TEXT, $personGender TEXT)');
   }
 
   // Functions for CRUD operations
@@ -62,8 +66,8 @@ class PersonDatabaseHelper {
   Future<List<Map<String, dynamic>>> getPerson(String email) async {
     Database db = await this.database;
 
-    var result = await db
-        .rawQuery('SELECT * FROM $personTable WHERE $personEmail = $email');
+    var result = await db.rawQuery(
+        'SELECT * FROM $personTable WHERE $personFullName = \'$email\' ');
     return result;
   }
 
@@ -72,6 +76,7 @@ class PersonDatabaseHelper {
     Database db = await this.database;
 
     var result = await db.insert(personTable, person.toMap());
+    print("Person details inserted in the table.");
     return result;
   }
 

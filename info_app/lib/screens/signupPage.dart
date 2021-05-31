@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import 'package:info_app/helper/validationFunctions.dart';
+import 'package:info_app/models/personModel.dart';
 
 import 'loginPage.dart';
 import "package:intl/intl.dart";
@@ -11,7 +12,7 @@ import 'profilePage.dart';
 
 //import 'package:info_app/models/personModel.dart';
 import 'package:info_app/helper/personDatabaseHelper.dart';
-import 'dart:async';
+//import 'dart:async';
 //import 'package:sqflite/sqflite.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -272,8 +273,24 @@ class _SignUpPageState extends State<SignUpPage> {
                       debugPrint("Account Created!!!!!!!");
 
                       // Creating a new variable
+                      var personObject = Person(
+                          nameController.text.toString(),
+                          emailController.text.toString(),
+                          phoneController.text,
+                          passController.text.toString(),
+                          dateFormat.format(_birthDate).toString(),
+                          _gender.toString());
+                      // Initialising database instance
                       PersonDatabaseHelper person = new PersonDatabaseHelper();
                       await person.initializeDatabase();
+
+                      // Inserting the person details
+                      await person.insertPerson(personObject);
+
+                      // Fetching
+                      var result = await person
+                          .getPerson(emailController.text.toString());
+                      print(result);
 
                       // // Inserting Person's Details into database
                       // await insertPerson(person);

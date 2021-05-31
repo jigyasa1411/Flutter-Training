@@ -1,12 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
 import 'package:info_app/helper/validationFunctions.dart';
 
 import 'loginPage.dart';
 import "package:intl/intl.dart";
 
 import 'profilePage.dart';
+
+//import 'package:info_app/models/personModel.dart';
+import 'package:info_app/helper/personDatabaseHelper.dart';
+import 'dart:async';
+//import 'package:sqflite/sqflite.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -26,6 +32,10 @@ class _SignUpPageState extends State<SignUpPage> {
   DateFormat dateFormat = DateFormat("yyyy-MM-dd");
 
   Gender _gender = Gender.Male;
+
+  // creating database instance
+  // PersonDatabaseHelper personDatabaseHelper = PersonDatabaseHelper();
+  // List<Person> personList;
 
   @override
   Widget build(BuildContext context) {
@@ -249,7 +259,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 width: 510,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       debugPrint("Details are validated!!");
                       debugPrint("Full Name: " + nameController.text);
@@ -260,6 +270,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       print("Phone Number: " + phoneController.text.toString());
                       debugPrint("Account Created!!!!!!!");
+
+                      // Creating a new variable
+                      PersonDatabaseHelper person = new PersonDatabaseHelper();
+                      await person.initializeDatabase();
+
+                      // // Inserting Person's Details into database
+                      // await insertPerson(person);
+                      // //print(await persons());
 
                       Navigator.push(
                           context,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:info_app/helper/validationFunctions.dart';
 import 'signupPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,7 +10,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
-  TextEditingController passController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           TextFormField(
                             obscureText: true,
-                            controller: emailController,
+                            controller: passwordController,
                             decoration: InputDecoration(
                               enabledBorder: InputBorder.none,
                               hintText: "Password",
@@ -83,6 +84,9 @@ class _LoginPageState extends State<LoginPage> {
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 20.0, horizontal: 10.0),
                             ),
+                            validator: (value) {
+                              return validatePassword(value);
+                            },
                           ),
                         ],
                       ),

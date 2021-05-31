@@ -22,6 +22,9 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
+TextEditingController nameController = new TextEditingController();
+TextEditingController passController = new TextEditingController();
+
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   @override
@@ -53,15 +56,18 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: nameController,
                     decoration: InputDecoration(
                       hintText: "Username",
-                      fillColor: Colors.white70,
+                      hintStyle: TextStyle(color: Colors.grey[700]),
+                      fillColor: Color.fromRGBO(254, 254, 254, 10),
                       filled: true,
                       prefixIcon: Icon(Icons.person),
+                      border: InputBorder.none,
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return "Please enter some text";
+                        return "Enter some username";
                       }
                       return null;
                     },
@@ -70,12 +76,15 @@ class _LoginPageState extends State<LoginPage> {
                     height: 10,
                   ),
                   TextFormField(
+                    controller: passController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Password",
-                      fillColor: Colors.white70,
+                      hintStyle: TextStyle(color: Colors.grey[700]),
+                      fillColor: Color.fromRGBO(254, 254, 254, 10),
                       filled: true,
                       prefixIcon: Icon(Icons.lock),
+                      border: InputBorder.none,
                     ),
                     validator: (value) {
                       if (value.isEmpty) {
@@ -102,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextButton(
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          debugPrint("Account Created!!");
+                          debugPrint("Username:" + nameController.toString());
                         }
                       },
                       child: Text(
@@ -114,6 +123,23 @@ class _LoginPageState extends State<LoginPage> {
                             Color.fromRGBO(24, 214, 209, 10)),
                       ),
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't have an account?",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "Sign Up",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
+                          ))
+                    ],
                   ),
                 ],
               ),

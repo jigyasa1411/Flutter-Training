@@ -26,12 +26,14 @@ class _ProfilePageState extends State<ProfilePage> {
               Color.fromRGBO(32, 137, 229, 1),
               Color.fromRGBO(100, 181, 246, 1),
             ])),
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
             child: Column(
               children: [
                 SizedBox(height: 10),
                 Container(
+                  child: Center(
+                    child: Text("J",
+                        style: TextStyle(color: Colors.red, fontSize: 40)),
+                  ),
                   height: 100,
                   width: 100,
                   decoration: BoxDecoration(
@@ -45,6 +47,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 Form(
                   key: _formKey,
                   child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.only(bottom: 10, top: 50),
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -68,14 +72,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             SizedBox(height: 10),
                             TextFormField(
                               decoration: InputDecoration(
-                                  //border: OutlineInputBorder(),
                                   prefixIcon: Icon(Icons.person_outline),
                                   hintText: "Name",
                                   fillColor: Colors.white,
                                   filled: true,
                                   enabledBorder: InputBorder.none,
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: 30.0, horizontal: 10.0)),
+                                      vertical: 25.0, horizontal: 10.0)),
                               textInputAction: TextInputAction.next,
                               onEditingComplete: () => node.nextFocus(),
                             ),
@@ -84,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               children: [
                                 SizedBox(width: 10),
                                 Icon(
-                                  Icons.person,
+                                  Icons.bookmark_outline_outlined,
                                   color: Colors.grey[600],
                                 ),
                                 Text(
@@ -125,12 +128,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   fillColor: Colors.white,
                                   filled: true,
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: 30.0, horizontal: 10.0)),
+                                      vertical: 25.0, horizontal: 10.0)),
                               textInputAction: TextInputAction.next,
                               onEditingComplete: () => node.nextFocus(),
                             ),
                             // SizedBox(height: 20),
                             TextFormField(
+                              readOnly: true,
                               decoration: InputDecoration(
                                   hintText: "Email",
                                   prefixIcon: Icon(Icons.alternate_email),
@@ -138,12 +142,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   fillColor: Colors.white,
                                   filled: true,
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: 30.0, horizontal: 10.0)),
+                                      vertical: 25.0, horizontal: 10.0)),
                               textInputAction: TextInputAction.next,
                               onEditingComplete: () => node.nextFocus(),
                             ),
                             //SizedBox(height: 20),
                             TextFormField(
+                              readOnly: true,
                               decoration: InputDecoration(
                                   hintText: "Phone",
                                   prefixIcon: Icon(Icons.phone),
@@ -151,9 +156,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   fillColor: Colors.white,
                                   filled: true,
                                   contentPadding: EdgeInsets.symmetric(
-                                      vertical: 30.0, horizontal: 10.0)),
-                              textInputAction: TextInputAction.next,
-                              onEditingComplete: () => node.nextFocus(),
+                                      vertical: 25.0, horizontal: 10.0)),
+                              //textInputAction: TextInputAction.next,
+                              onEditingComplete: () => node.unfocus(),
                             ),
                             //SizedBox(height: 20),
 

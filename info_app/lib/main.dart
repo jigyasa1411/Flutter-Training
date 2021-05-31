@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+//import 'package:info_app/screens/dashboardPage.dart';
+//import 'package:info_app/screens/profilePage.dart';
+
+import 'package:info_app/screens/signupPage.dart';
+//import 'dart:async';
+//import 'package:path/path.dart';
+
+//import 'screens/dashboardPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: SignUpPage(),
     );
   }
 }

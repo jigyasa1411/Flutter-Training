@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:info_app/screens/loginPage.dart';
-import 'package:info_app/screens/signupPage.dart';
+import 'package:info_app/screens/loginPage.dart';
+//import 'package:info_app/screens/signupPage.dart';
 //import 'package:info_app/screens/dashboardPage.dart';
 //import 'package:info_app/screens/profilePage.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SignUpPage(),
+      home: LoginPage(),
     );
   }
 }

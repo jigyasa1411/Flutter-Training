@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:info_app/helper/authenticationFunctions.dart';
 //import 'package:info_app/helper/personDatabaseHelper.dart';
 import 'package:info_app/helper/validationFunctions.dart';
+import 'package:info_app/screens/dashboardPage.dart';
 import 'package:info_app/screens/profilePage.dart';
 import 'signupPage.dart';
 
@@ -117,21 +118,23 @@ class _LoginPageState extends State<LoginPage> {
                             if (_formKey.currentState.validate()) {
                               print("Validations Passed.");
 
-                              // PersonDatabaseHelper person =
-                              //     new PersonDatabaseHelper();
-                              // Initialise the database
-                              //await person.initializeDatabase();
-
                               // checking the credentials
                               bool credentialExists = await checkCredentials(
                                   emailController.text.toString(),
                                   passwordController.text.toString());
 
+                              // Setting up the info in profile page
+                              //getList();
+
+                              await getInfoList(
+                                  emailController.text.toString());
+                              //await getEmail(emailController.text.toString());
+
                               if (credentialExists) {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ProfilePage()));
+                                        builder: (context) => DashboardPage()));
                               }
                             }
                           },

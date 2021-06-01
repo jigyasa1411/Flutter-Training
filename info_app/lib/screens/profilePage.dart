@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:info_app/helper/authenticationFunctions.dart';
+//import 'package:info_app/helper/personDatabaseHelper.dart';
+//import 'package:info_app/helper/authenticationFunctions.dart';
 import 'package:info_app/models/gender.dart';
+import 'package:info_app/models/personModel.dart';
+//import 'package:info_app/models/personModel.dart';
+
+//import 'package:info_app/helper/authenticationFunctions.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -7,8 +14,53 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  Gender _gender = Gender.Male; // Setting up the default value of the gender.
+  Gender gender = Gender.Female; // Setting up the default value of the gender.
   final _formKey = GlobalKey<FormState>();
+
+  // Future<List<dynamic>> personList =
+  //getList(personList);
+
+  // TextEditingController name = new TextEditingController();
+  // TextEditingController email = new TextEditingController();
+  // TextEditingController birthDate = new TextEditingController();
+  // TextEditingController phoneNumber = new TextEditingController();
+
+// void getList(String email) async {
+//   PersonDatabaseHelper person = new PersonDatabaseHelper();
+//   var info = await person.getPerson(email);
+
+//   List<Person> listPerson = [];
+//   info.forEach((element) {
+//     Person personObj = Person.fromMapObject(element);
+//     listPerson.add(personObj);
+//   });
+
+//   listPerson.forEach((element) {
+//     name = element.fullName;
+//     email = element.email;
+//     gender = element.gender;
+//     birthDate = element.birthDate;
+//     phoneNumber = element.phoneNumber;
+//   });
+// }
+
+  // getFullName() async {
+  //   List<Person> personList = await getList(emailController.text.toString());
+  //   return personList;
+  // }
+
+  // Future<String> getName() async {
+  //   List<Person> personList = await getList(emailController.text.toString());
+  //   personList.forEach((element) {
+  //     name = element.fullName;
+  //   });
+  //   return name;
+  // }
+
+  // setName() async {
+  //   name = await getName();
+  // }
+
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
@@ -31,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(height: 10),
                 Container(
                   child: Center(
-                    child: Text("J",
+                    child: Text(name[0],
                         style: TextStyle(color: Colors.red, fontSize: 40)),
                   ),
                   height: 100,
@@ -71,9 +123,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             SizedBox(height: 10),
                             TextFormField(
+                              //controller: name,
                               decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.person_outline),
-                                  hintText: "Name",
+                                  hintText: name == null ? "Name" : name,
                                   fillColor: Colors.white,
                                   filled: true,
                                   enabledBorder: InputBorder.none,
@@ -97,10 +150,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 Radio(
                                     value: Gender.Male,
-                                    groupValue: _gender,
+                                    groupValue: gender,
                                     onChanged: (value) {
                                       setState(() {
-                                        _gender = value;
+                                        gender = value;
                                       });
                                     }),
                                 Text("Male",
@@ -108,10 +161,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         color: Colors.grey[600], fontSize: 16)),
                                 Radio(
                                     value: Gender.Female,
-                                    groupValue: _gender,
+                                    groupValue: gender,
                                     onChanged: (value) {
                                       setState(() {
-                                        _gender = value;
+                                        gender = value;
                                       });
                                     }),
                                 Text("Female",
@@ -121,7 +174,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             TextFormField(
                               decoration: InputDecoration(
-                                  hintText: "Date of birth",
+                                  hintText: birthDate == null
+                                      ? "Date of Birth"
+                                      : birthDate,
                                   prefixIcon:
                                       Icon(Icons.calendar_today_outlined),
                                   enabledBorder: InputBorder.none,
@@ -134,9 +189,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             // SizedBox(height: 20),
                             TextFormField(
-                              readOnly: true,
+                              //readOnly: true,
                               decoration: InputDecoration(
-                                  hintText: "Email",
+                                  hintText: email == null ? "Email" : email,
                                   prefixIcon: Icon(Icons.alternate_email),
                                   enabledBorder: InputBorder.none,
                                   fillColor: Colors.white,
@@ -150,7 +205,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             TextFormField(
                               readOnly: true,
                               decoration: InputDecoration(
-                                  hintText: "Phone",
+                                  hintText: phoneNumber == null
+                                      ? "Phone Number"
+                                      : phoneNumber,
                                   prefixIcon: Icon(Icons.phone),
                                   enabledBorder: InputBorder.none,
                                   fillColor: Colors.white,

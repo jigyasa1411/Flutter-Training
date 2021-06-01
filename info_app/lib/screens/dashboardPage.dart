@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:info_app/helper/authenticationFunctions.dart';
+import 'package:info_app/screens/loginPage.dart';
+import 'package:info_app/screens/profilePage.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -42,7 +45,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   children: [
                     Container(
                       child: Center(
-                        child: Text("J",
+                        child: Text(name[0],
                             style: TextStyle(color: Colors.red, fontSize: 40)),
                       ),
                       height: 100,
@@ -55,12 +58,12 @@ class _DashboardPageState extends State<DashboardPage> {
                     // printing Name
                     SizedBox(height: 10),
                     Text(
-                      "Name",
+                      name == null ? "Default" : name,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 10),
                     Text(
-                      "jigyasa@gmail.com",
+                      email == null ? "Email not found" : email,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
@@ -70,7 +73,10 @@ class _DashboardPageState extends State<DashboardPage> {
               // Buttons
 
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()));
+                  },
                   child: Row(children: [
                     // Profile
 
@@ -83,7 +89,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       "Profile",
                       style: TextStyle(fontSize: 20, color: Colors.black),
                     ),
-
+                    Spacer(),
                     Icon(Icons.arrow_right, color: Colors.black),
                   ])
                   // Change Password
@@ -104,6 +110,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         "Change Password",
                         style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
+                      Spacer(),
                       Icon(Icons.arrow_right, color: Colors.black),
                     ],
                   )),
@@ -123,6 +130,31 @@ class _DashboardPageState extends State<DashboardPage> {
                         "Settings",
                         style: TextStyle(fontSize: 20, color: Colors.black),
                       ),
+                      Spacer(),
+                      Icon(Icons.arrow_right, color: Colors.black),
+                    ],
+                  )),
+
+              Spacer(),
+
+              // Sign Out
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.logout,
+                        color: Colors.black,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Sign Out",
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
+                      Spacer(),
                       Icon(Icons.arrow_right, color: Colors.black),
                     ],
                   )),

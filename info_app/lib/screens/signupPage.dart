@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:info_app/helper/authenticationFunctions.dart';
 
 import 'package:info_app/helper/validationFunctions.dart';
 import 'package:info_app/models/personModel.dart';
@@ -37,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailCheckController = new TextEditingController();
 //END
 
-  Gender _gender = Gender.Male;
+  Gender _gender = Gender.Female;
 
   // creating database instance
   // PersonDatabaseHelper personDatabaseHelper = PersonDatabaseHelper();
@@ -284,7 +285,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           phoneController.text,
                           passController.text.toString(),
                           dateFormat.format(_birthDate).toString(),
-                          _gender.toString());
+                          gender);
                       // Initialising database instance
                       PersonDatabaseHelper person = new PersonDatabaseHelper();
                       await person.initializeDatabase();

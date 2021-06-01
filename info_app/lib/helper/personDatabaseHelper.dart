@@ -10,7 +10,7 @@ class PersonDatabaseHelper {
 
   static Database _database;
 
-  String personTable = 'personTable';
+  String personTable = 'personsTable';
   String personFullName = 'fullName';
   String personEmail = 'email';
   String personPhoneNumber = 'phoneNumber';
@@ -56,8 +56,10 @@ class PersonDatabaseHelper {
 
   // Function for creating a Database,
   void _createDb(Database db, int newVersion) async {
-    await db.execute(
-        'CREATE TABLE personTable ($personFullName TEXT, $personEmail VARCHAR PRIMARY KEY, $personPhoneNumber TEXT UNIQUE, $personPassword VARCHAR, $personBirthDate TEXT, $personGender TEXT)');
+    if (_database == null) {
+      await db.execute(
+          'CREATE TABLE personsTable ($personFullName TEXT, $personEmail VARCHAR PRIMARY KEY, $personPhoneNumber TEXT UNIQUE, $personPassword VARCHAR, $personBirthDate TEXT, $personGender TEXT)');
+    }
   }
 
   // Functions for CRUD operations
@@ -67,7 +69,7 @@ class PersonDatabaseHelper {
     Database db = await this.database;
 
     var result = await db.rawQuery(
-        'SELECT * FROM $personTable WHERE $personFullName = \'$email\' ');
+        'SELECT * FROM $personTable WHERE $personEmail = \'$email\' ');
     return result;
   }
 
@@ -76,7 +78,8 @@ class PersonDatabaseHelper {
     Database db = await this.database;
 
     var result = await db.insert(personTable, person.toMap());
-    print("Person details inserted in the table.");
+    print("Person details inserted in the $personTable.");
+    print("$personTable contains $result records.");
     return result;
   }
 

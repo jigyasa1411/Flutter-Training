@@ -32,6 +32,11 @@ class _SignUpPageState extends State<SignUpPage> {
   DateTime _birthDate;
   DateFormat dateFormat = DateFormat("yyyy-MM-dd");
 
+//JUST FOR REPRESENTATION PURPOSE
+//START
+  TextEditingController emailCheckController = new TextEditingController();
+//END
+
   Gender _gender = Gender.Male;
 
   // creating database instance
@@ -288,9 +293,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       await person.insertPerson(personObject);
 
                       // Fetching
-                      var result = await person
-                          .getPerson(emailController.text.toString());
-                      print(result);
+                      // var result = await person
+                      //     .getPerson(emailController.text.toString());
+                      // print(result);
 
                       // // Inserting Person's Details into database
                       // await insertPerson(person);
@@ -337,9 +342,38 @@ class _SignUpPageState extends State<SignUpPage> {
                         "Sign In",
                         style: TextStyle(
                             color: Colors.blue, fontWeight: FontWeight.bold),
-                      ))
+                      )),
                 ],
               ),
+
+              // Just for representation !!!!!!!!
+              // START
+              Column(
+                children: [
+                  TextFormField(
+                    controller: emailCheckController,
+                    decoration: InputDecoration(
+                      hintText:
+                          "Enter the email of the person you want to see details of:",
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () async {
+                        PersonDatabaseHelper person =
+                            new PersonDatabaseHelper();
+
+                        // await person
+                        //     .initializeDatabase(); // Database initialization
+                        var result = await person
+                            .getPerson(emailCheckController.text.toString());
+                        for (int i = 0; i < result.length; i++) {
+                          print(result[i]);
+                        }
+                      },
+                      child: Text("Press to show details")),
+                ],
+              )
+              // END
             ]),
           )),
     );

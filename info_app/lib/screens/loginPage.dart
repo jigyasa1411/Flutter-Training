@@ -3,7 +3,7 @@ import 'package:info_app/helper/authenticationFunctions.dart';
 //import 'package:info_app/helper/personDatabaseHelper.dart';
 import 'package:info_app/helper/validationFunctions.dart';
 import 'package:info_app/screens/dashboardPage.dart';
-import 'package:info_app/screens/profilePage.dart';
+//import 'package:info_app/screens/profilePage.dart';
 import 'signupPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                               // Setting up the info in profile page
                               //getList();
 
-                              await getInfoList(
+                              await getPersonList(
                                   emailController.text.toString());
                               //await getEmail(emailController.text.toString());
 

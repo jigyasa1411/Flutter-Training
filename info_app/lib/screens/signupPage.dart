@@ -1,15 +1,16 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:info_app/helper/authenticationFunctions.dart';
+//import 'package:info_app/helper/authenticationFunctions.dart';
 
 import 'package:info_app/helper/validationFunctions.dart';
 import 'package:info_app/models/personModel.dart';
+import 'package:info_app/screens/dashboardPage.dart';
 
 import 'loginPage.dart';
 import "package:intl/intl.dart";
 
-import 'profilePage.dart';
+//import 'profilePage.dart';
 
 //import 'package:info_app/models/personModel.dart';
 import 'package:info_app/helper/personDatabaseHelper.dart';
@@ -21,7 +22,8 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-enum Gender { Male, Female }
+//enum Gender { Male, Female }
+String gender = "Male";
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
@@ -38,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController emailCheckController = new TextEditingController();
 //END
 
-  Gender _gender = Gender.Female;
+  //Gender _gender = Gender.Female;
 
   // creating database instance
   // PersonDatabaseHelper personDatabaseHelper = PersonDatabaseHelper();
@@ -237,22 +239,22 @@ class _SignUpPageState extends State<SignUpPage> {
                       style: TextStyle(color: Colors.grey[600], fontSize: 16),
                     ),
                     Radio(
-                        value: Gender.Male,
-                        groupValue: _gender,
+                        value: "Male",
+                        groupValue: gender,
                         onChanged: (value) {
                           setState(() {
-                            _gender = value;
+                            gender = value;
                           });
                         }),
                     Text("Male",
                         style:
                             TextStyle(color: Colors.grey[600], fontSize: 16)),
                     Radio(
-                        value: Gender.Female,
-                        groupValue: _gender,
+                        value: "Female",
+                        groupValue: gender,
                         onChanged: (value) {
                           setState(() {
-                            _gender = value;
+                            gender = value;
                           });
                         }),
                     Text("Female",
@@ -273,7 +275,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       debugPrint("Email ID: " + emailController.text);
                       debugPrint("Date of Birth: " +
                           dateFormat.format(_birthDate).toString());
-                      debugPrint("Gender: " + _gender.toString());
+                      debugPrint("Gender: " + gender.toString());
 
                       print("Phone Number: " + phoneController.text.toString());
                       debugPrint("Account Created!!!!!!!");
@@ -293,19 +295,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       // Inserting the person details
                       await person.insertPerson(personObject);
 
-                      // Fetching
-                      // var result = await person
-                      //     .getPerson(emailController.text.toString());
-                      // print(result);
-
-                      // // Inserting Person's Details into database
-                      // await insertPerson(person);
-                      // //print(await persons());
-
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfilePage()));
+                      // After insertion user will be navigated to login page
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
                     }
                   },
                   child: Text(

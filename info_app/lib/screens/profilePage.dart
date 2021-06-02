@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:info_app/helper/authenticationFunctions.dart';
 //import 'package:info_app/helper/personDatabaseHelper.dart';
 //import 'package:info_app/helper/authenticationFunctions.dart';
-import 'package:info_app/models/gender.dart';
-import 'package:info_app/models/personModel.dart';
+//import 'package:info_app/models/gender.dart';
+//import 'package:info_app/models/personModel.dart';
 //import 'package:info_app/models/personModel.dart';
 
 //import 'package:info_app/helper/authenticationFunctions.dart';
@@ -14,7 +14,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  Gender gender = Gender.Female; // Setting up the default value of the gender.
+  //Gender gender = Gender.Female;
+  String _gender = gender == null
+      ? "Male"
+      : gender; // Setting up the default value of the gender.
   final _formKey = GlobalKey<FormState>();
 
   // Future<List<dynamic>> personList =
@@ -149,22 +152,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                       color: Colors.grey[600], fontSize: 16),
                                 ),
                                 Radio(
-                                    value: Gender.Male,
-                                    groupValue: gender,
+                                    value: "Male",
+                                    groupValue: _gender,
                                     onChanged: (value) {
                                       setState(() {
-                                        gender = value;
+                                        _gender = value;
                                       });
                                     }),
                                 Text("Male",
                                     style: TextStyle(
                                         color: Colors.grey[600], fontSize: 16)),
                                 Radio(
-                                    value: Gender.Female,
-                                    groupValue: gender,
+                                    value: "Female",
+                                    groupValue: _gender,
                                     onChanged: (value) {
                                       setState(() {
-                                        gender = value;
+                                        _gender = value;
                                       });
                                     }),
                                 Text("Female",
@@ -189,7 +192,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             // SizedBox(height: 20),
                             TextFormField(
-                              //readOnly: true,
+                              readOnly: true,
                               decoration: InputDecoration(
                                   hintText: email == null ? "Email" : email,
                                   prefixIcon: Icon(Icons.alternate_email),

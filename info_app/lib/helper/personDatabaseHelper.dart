@@ -58,7 +58,7 @@ class PersonDatabaseHelper {
   void _createDb(Database db, int newVersion) async {
     if (_database == null) {
       await db.execute(
-          'CREATE TABLE personsTable ($personFullName TEXT, $personEmail VARCHAR PRIMARY KEY, $personPhoneNumber TEXT UNIQUE, $personPassword VARCHAR, $personBirthDate TEXT, $personGender TEXT)');
+          'CREATE TABLE personsTable ($personFullName TEXT, $personEmail TEXT PRIMARY KEY, $personPhoneNumber TEXT UNIQUE, $personPassword VARCHAR, $personBirthDate TEXT, $personGender TEXT)');
     }
   }
 

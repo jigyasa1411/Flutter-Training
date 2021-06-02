@@ -1,5 +1,5 @@
 import 'package:info_app/helper/personDatabaseHelper.dart';
-import 'package:info_app/models/gender.dart';
+
 import 'package:info_app/models/personModel.dart';
 
 Future<bool> checkCredentials(String email, String password) async {
@@ -30,7 +30,7 @@ Future<bool> checkCredentials(String email, String password) async {
 
 String name;
 String email;
-Gender gender;
+String gender;
 String birthDate;
 String phoneNumber;
 getList(List<Person> listPerson) async {
@@ -46,7 +46,7 @@ getList(List<Person> listPerson) async {
 
 //String name;
 
-Future<List<dynamic>> getInfoList(String email) async {
+Future<List<String>> getInfoList(String email) async {
   PersonDatabaseHelper person = new PersonDatabaseHelper();
   var info = await person.getPerson(email);
 
@@ -56,7 +56,7 @@ Future<List<dynamic>> getInfoList(String email) async {
     listPerson.add(personObj);
   });
 
-  List<dynamic> personInfoList = [];
+  List<String> personInfoList = [];
 
   listPerson.forEach((element) {
     name = element.fullName;
@@ -76,7 +76,7 @@ Future<List<dynamic>> getInfoList(String email) async {
   return personInfoList;
 }
 
-Future<List<dynamic>> getPersonList(String email) async {
+Future<List<String>> getPersonList(String email) async {
   List<dynamic> personList;
   personList = await getInfoList(email);
   return personList;

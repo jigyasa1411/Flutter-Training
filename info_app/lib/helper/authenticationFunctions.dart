@@ -29,13 +29,13 @@ Future<bool> checkCredentials(String email, String password) async {
 // Get list of persons
 
 String name;
-String email;
+String email1;
 String gender;
 String birthDate;
 String phoneNumber;
 getList(List<Person> listPerson) async {
   PersonDatabaseHelper person = new PersonDatabaseHelper();
-  var info = await person.getPerson(email);
+  var info = await person.getPerson(email1);
 
   //listPerson = [];
   info.forEach((element) {
@@ -61,8 +61,8 @@ Future<List<String>> getInfoList(String email) async {
   listPerson.forEach((element) {
     name = element.fullName;
     personInfoList.add(name);
-    email = element.email;
-    personInfoList.add(email);
+    email1 = element.email;
+    personInfoList.add(email1);
     birthDate = element.birthDate;
     personInfoList.add(birthDate);
     gender = element.gender;
@@ -77,7 +77,7 @@ Future<List<String>> getInfoList(String email) async {
 }
 
 Future<List<String>> getPersonList(String email) async {
-  List<dynamic> personList;
+  List<String> personList;
   personList = await getInfoList(email);
   return personList;
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:info_app/helper/authenticationFunctions.dart';
+import 'package:info_app/screens/galleryPage.dart';
 import 'package:info_app/screens/loginPage.dart';
 import 'package:info_app/screens/profilePage.dart';
 
@@ -63,7 +64,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      email == null ? "Email not found" : email,
+                      email1 == null ? "Email not found" : email1,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     )
                   ],
@@ -91,12 +92,9 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
                     Spacer(),
                     Icon(Icons.arrow_right, color: Colors.black),
-                  ])
-                  // Change Password
+                  ])),
 
-                  ),
-
-              // Password
+              //Change Password
               TextButton(
                   onPressed: () {},
                   child: Row(
@@ -115,8 +113,31 @@ class _DashboardPageState extends State<DashboardPage> {
                     ],
                   )),
 
+              // Gallery
+
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => GalleryPage()));
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.image,
+                        color: Colors.black,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        "Gallery",
+                        style: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
+                      Spacer(),
+                      Icon(Icons.arrow_right, color: Colors.black),
+                    ],
+                  )),
+
               // Settings
-              // Password
+
               TextButton(
                   onPressed: () {},
                   child: Row(

@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: [
           // Successive Logo
-          Image.asset("assets/successiveLogo2.png", height: 150, width: 350),
+          Image.asset("assets/successive_Logo.png", height: 150, width: 350),
 
           Container(
             height: MediaQuery.of(context).size.height,

@@ -1,28 +1,16 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-//import 'package:info_app/helper/authenticationFunctions.dart';
-
 import 'package:info_app/helper/validationFunctions.dart';
 import 'package:info_app/models/personModel.dart';
-import 'package:info_app/screens/dashboardPage.dart';
-
 import 'loginPage.dart';
 import "package:intl/intl.dart";
-
-//import 'profilePage.dart';
-
-//import 'package:info_app/models/personModel.dart';
 import 'package:info_app/helper/personDatabaseHelper.dart';
-//import 'dart:async';
-//import 'package:sqflite/sqflite.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-//enum Gender { Male, Female }
 String gender = "Male";
 
 class _SignUpPageState extends State<SignUpPage> {
@@ -34,17 +22,6 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController phoneController = new TextEditingController();
   DateTime _birthDate;
   DateFormat dateFormat = DateFormat("yyyy-MM-dd");
-
-//JUST FOR REPRESENTATION PURPOSE
-//START
-  TextEditingController emailCheckController = new TextEditingController();
-//END
-
-  //Gender _gender = Gender.Female;
-
-  // creating database instance
-  // PersonDatabaseHelper personDatabaseHelper = PersonDatabaseHelper();
-  // List<Person> personList;
 
   @override
   Widget build(BuildContext context) {
@@ -338,35 +315,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       )),
                 ],
               ),
-
-              // Just for representation !!!!!!!!
-              // START
-              Column(
-                children: [
-                  TextFormField(
-                    controller: emailCheckController,
-                    decoration: InputDecoration(
-                      hintText:
-                          "Enter the email of the person you want to see details of:",
-                    ),
-                  ),
-                  TextButton(
-                      onPressed: () async {
-                        PersonDatabaseHelper person =
-                            new PersonDatabaseHelper();
-
-                        // await person
-                        //     .initializeDatabase(); // Database initialization
-                        var result = await person
-                            .getPerson(emailCheckController.text.toString());
-                        for (int i = 0; i < result.length; i++) {
-                          print(result[i]);
-                        }
-                      },
-                      child: Text("Press to show details")),
-                ],
-              )
-              // END
             ]),
           )),
     );

@@ -3,6 +3,7 @@ import 'package:info_app/helper/authenticationFunctions.dart';
 import 'package:info_app/screens/galleryPage.dart';
 import 'package:info_app/screens/loginPage.dart';
 import 'package:info_app/screens/profilePage.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -46,11 +47,11 @@ class _DashboardPageState extends State<DashboardPage> {
                   children: [
                     Container(
                       child: Center(
-                        child: Text(name[0],
+                        child: Text(name[0].toUpperCase(),
                             style: TextStyle(color: Colors.red, fontSize: 40)),
                       ),
-                      height: 100,
-                      width: 100,
+                      height: 90,
+                      width: 90,
                       //color: Colors.white,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle, color: Colors.white),
@@ -58,15 +59,13 @@ class _DashboardPageState extends State<DashboardPage> {
 
                     // printing Name
                     SizedBox(height: 10),
-                    Text(
-                      name == null ? "Default" : name,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      email1 == null ? "Email not found" : email1,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
+                    Text(name == null ? "Default" : name,
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold)),
+
+                    Text(email1 == null ? "Email not found" : email1,
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold))
                   ],
                 ),
               ),
@@ -82,13 +81,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     // Profile
 
                     Icon(
-                      Icons.people,
+                      Icons.people_outline,
                       color: Colors.black,
                     ),
                     SizedBox(width: 10),
                     Text(
                       "Profile",
-                      style: TextStyle(fontSize: 20, color: Colors.black),
+                      style: TextStyle(
+                          fontSize: 19,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.normal),
                     ),
                     Spacer(),
                     Icon(Icons.arrow_right, color: Colors.black),
@@ -100,13 +102,16 @@ class _DashboardPageState extends State<DashboardPage> {
                   child: Row(
                     children: [
                       Icon(
-                        Icons.lock,
+                        Icons.lock_outline,
                         color: Colors.black,
                       ),
                       SizedBox(width: 10),
                       Text(
                         "Change Password",
-                        style: TextStyle(fontSize: 20, color: Colors.black),
+                        style: TextStyle(
+                            fontSize: 19,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.normal),
                       ),
                       Spacer(),
                       Icon(Icons.arrow_right, color: Colors.black),
@@ -123,13 +128,16 @@ class _DashboardPageState extends State<DashboardPage> {
                   child: Row(
                     children: [
                       Icon(
-                        Icons.image,
+                        Icons.image_outlined,
                         color: Colors.black,
                       ),
                       SizedBox(width: 10),
                       Text(
                         "Gallery",
-                        style: TextStyle(fontSize: 20, color: Colors.black),
+                        style: TextStyle(
+                            fontSize: 19,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.normal),
                       ),
                       Spacer(),
                       Icon(Icons.arrow_right, color: Colors.black),
@@ -149,7 +157,10 @@ class _DashboardPageState extends State<DashboardPage> {
                       SizedBox(width: 10),
                       Text(
                         "Settings",
-                        style: TextStyle(fontSize: 20, color: Colors.black),
+                        style: TextStyle(
+                            fontSize: 19,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.normal),
                       ),
                       Spacer(),
                       Icon(Icons.arrow_right, color: Colors.black),
@@ -167,13 +178,16 @@ class _DashboardPageState extends State<DashboardPage> {
                   child: Row(
                     children: [
                       Icon(
-                        Icons.logout,
+                        MdiIcons.logoutVariant,
                         color: Colors.black,
                       ),
                       SizedBox(width: 10),
                       Text(
-                        "Sign Out",
-                        style: TextStyle(fontSize: 20, color: Colors.black),
+                        "Log Out",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.normal),
                       ),
                       Spacer(),
                       Icon(Icons.arrow_right, color: Colors.black),

@@ -22,7 +22,6 @@ class _State extends State<GalleryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(color: Colors.blue),
           child: GridView.builder(
               itemCount: img.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -31,6 +31,7 @@ class _State extends State<GalleryPage> {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                     decoration: BoxDecoration(
+                      color: Colors.blue,
                       borderRadius: BorderRadius.circular(50),
                     ),
                     child: Image.asset(img[index]));

@@ -58,11 +58,11 @@ class _DashboardPageState extends State<DashboardPage> {
                     ),
 
                     // printing Name
-                    SizedBox(height: 10),
+                    SizedBox(height: 20),
+
                     Text(name == null ? "Default" : name,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold)),
-
                     Text(email1 == null ? "Email not found" : email1,
                         style: TextStyle(
                             color: Colors.black, fontWeight: FontWeight.bold))

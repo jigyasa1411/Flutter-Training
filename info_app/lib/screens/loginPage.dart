@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.all(Radius.circular(40)),
                           boxShadow: [
                             BoxShadow(
-                              //color: Colors.grey,
+                              // color: Colors.grey,
                               spreadRadius: 7.0,
                               blurRadius: 5.0,
                               color: Color.fromRGBO(208, 222, 254, 1)
@@ -65,40 +65,32 @@ class _LoginPageState extends State<LoginPage> {
                           ]),
                       child: Column(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                border: Border(
-                              bottom: BorderSide(
-                                  width: 1.0, color: Colors.grey[300]),
-                            )),
-                            child: TextFormField(
-                                controller: emailController,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                    borderSide: new BorderSide(),
-                                  ),
-                                  enabledBorder: InputBorder.none,
-                                  hintText: "Email",
-                                  hintStyle: TextStyle(color: Colors.black),
-                                  prefixIcon: Icon(Icons.person_outline),
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  errorBorder: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 20.0, horizontal: 10.0),
+                          TextFormField(
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
-                                validator: (value) {
-                                  return validateEmail(value);
-                                }),
-                          ),
+                                enabledBorder: InputBorder.none,
+                                hintText: "Email",
+                                hintStyle: TextStyle(color: Colors.black),
+                                prefixIcon: Icon(Icons.person_outline),
+                                fillColor: Colors.white,
+                                filled: true,
+                                errorBorder: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 10.0),
+                              ),
+                              validator: (value) {
+                                return validateEmail(value);
+                              }),
                           TextFormField(
                             obscureText: true,
                             controller: passwordController,
                             decoration: InputDecoration(
-                              border: new OutlineInputBorder(
-                                borderRadius: new BorderRadius.circular(25.0),
-                                borderSide: new BorderSide(),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
                               ),
                               enabledBorder: InputBorder.none,
                               hintText: "Password",
@@ -200,23 +192,24 @@ class _LoginPageState extends State<LoginPage> {
                   Image.asset("assets/google.png", height: 100, width: 50),
                 ]),
                 Container(
-                  padding: EdgeInsets.only(bottom: 100),
+                  padding: EdgeInsets.only(top: 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Don't have an account?",
                         style: TextStyle(fontSize: 20),
                       ),
                       //SizedBox(width: 10),
-                      TextButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => SignUpPage()));
                         },
-                        child: Text("Sign Up",
+                        child: Text(" Sign Up",
                             style: TextStyle(
                                 color: Colors.blue[900], fontSize: 20)),
                       ),
@@ -225,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
                 )
               ],
             ),
-          )
+          ),
         ],
       ),
     )));

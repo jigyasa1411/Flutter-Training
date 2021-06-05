@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:info_app/helper/authenticationFunctions.dart';
+import 'package:info_app/helper/validationFunctions.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -45,11 +46,12 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 SizedBox(height: 10),
                 Container(
+                  height: MediaQuery.of(context).size.height * 0.15,
                   child: Center(
                     child: Text(name[0].toUpperCase(),
                         style: TextStyle(color: Colors.red, fontSize: 40)),
                   ),
-                  height: 90,
+                  //height: 90,
                   width: 90,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -62,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Form(
                   key: _formKey,
                   child: Container(
-                      height: MediaQuery.of(context).size.height,
+                      height: MediaQuery.of(context).size.height * 0.75,
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.only(bottom: 10, top: 50),
                       decoration: BoxDecoration(
@@ -234,7 +236,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 borderRadius: BorderRadius.circular(80.0),
                               ),
                               child: TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (_formKey.currentState.validate()) {
+                                    print("Changed");
+                                  }
+                                },
                                 child: Text(
                                   "Save",
                                   style: TextStyle(

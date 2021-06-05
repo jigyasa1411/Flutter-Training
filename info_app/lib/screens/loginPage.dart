@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:info_app/helper/authenticationFunctions.dart';
-//import 'package:info_app/helper/personDatabaseHelper.dart';
 import 'package:info_app/helper/validationFunctions.dart';
 import 'package:info_app/screens/dashboardPage.dart';
-//import 'package:info_app/screens/profilePage.dart';
-import 'signupPage.dart';
+import 'package:info_app/screens/signupPage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,210 +15,233 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SingleChildScrollView(
-            child: Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-        colors: [
-          Color.fromRGBO(100, 181, 246, 1),
-          Color.fromRGBO(60, 155, 237, 1),
-          Color.fromRGBO(32, 137, 229, 1),
-        ],
-      )),
-      child: Column(
-        children: [
-          SizedBox(height: 20),
-          // Successive Logo
-          Image.asset("assets/successive_Logo.png", height: 150, width: 300),
+    final node = FocusScope.of(context);
 
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(bottom: 30, top: 50, left: 20, right: 20),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(50),
-                    topLeft: Radius.circular(50))),
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 30, top: 50, left: 20, right: 20),
-                  child: Form(
-                    key: _formKey,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(40)),
-                          boxShadow: [
-                            BoxShadow(
-                              // color: Colors.grey,
-                              spreadRadius: 7.0,
-                              blurRadius: 5.0,
-                              color: Color.fromRGBO(208, 222, 254, 1)
-                                  .withOpacity(0.5),
-                              offset: Offset(0, 3),
-                            )
-                          ]),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                              controller: emailController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                enabledBorder: InputBorder.none,
-                                hintText: "Email",
-                                hintStyle: TextStyle(color: Colors.black),
-                                prefixIcon: Icon(Icons.person_outline),
-                                fillColor: Colors.white,
-                                filled: true,
-                                errorBorder: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 20.0, horizontal: 10.0),
-                              ),
-                              validator: (value) {
-                                return validateEmail(value);
-                              }),
-                          TextFormField(
-                            obscureText: true,
-                            controller: passwordController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                              ),
-                              enabledBorder: InputBorder.none,
-                              hintText: "Password",
-                              hintStyle: TextStyle(color: Colors.black),
-                              prefixIcon: Icon(Icons.lock_outline),
-                              fillColor: Colors.white,
-                              filled: true,
-                              errorBorder: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                  vertical: 20.0, horizontal: 10.0),
-                            ),
-                            validator: (value) {
-                              return validatePassword(value);
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+    return Scaffold(
+      body: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topLeft,
+                  colors: [
+                    Color.fromRGBO(60, 155, 237, 1),
+                    Color.fromRGBO(32, 137, 229, 1),
+                    Color.fromRGBO(100, 181, 246, 1),
+                  ],
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    child: Image.asset("assets/successive_Logo.png",
+                        height: 150, width: 300),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.75,
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.only(left: 30, right: 30),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50.0),
+                        topRight: Radius.circular(50.0),
+                      ),
+                      color: Colors.white,
                     ),
-                    Container(
-                        width: 350,
-                        height: 50,
-                        decoration: BoxDecoration(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 90.0),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(7.0),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  spreadRadius: 7.0,
+                                  blurRadius: 5.0,
+                                  color: Color.fromRGBO(205, 219, 254, 1)
+                                      .withOpacity(0.5),
+                                  offset: Offset(0, 3),
+                                )
+                              ]),
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                        width: 1.0, color: Colors.grey[300]),
+                                  ),
+                                ),
+                                child: TextFormField(
+                                  controller: emailController,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 20.0, horizontal: 10.0),
+                                    prefixIcon: Icon(
+                                      Icons.person_outline,
+                                    ),
+                                    hintText: 'Email',
+                                    hintStyle: TextStyle(color: Colors.black),
+                                  ),
+                                  validator: (value) {
+                                    return validateEmail(value);
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  onEditingComplete: () => node.nextFocus(),
+                                ),
+                              ),
+                              Container(
+                                //padding: EdgeInsets.only(left: 20, right: 20),
+                                child: TextFormField(
+                                  obscureText: true,
+                                  controller: passwordController,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 20.0, horizontal: 10.0),
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(
+                                      Icons.lock_outline,
+                                    ),
+                                    hintText: 'Password',
+                                    hintStyle: TextStyle(color: Colors.black),
+                                  ),
+                                  validator: (value) {
+                                    return validatePassword(value);
+                                  },
+                                  onEditingComplete: () => node.unfocus(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 30.0),
+                        Container(
+                          width: 370,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25.0),
                             boxShadow: [
                               BoxShadow(
-                                //color: Colors.grey,
                                 spreadRadius: 3.0,
                                 blurRadius: 5.0,
                                 color: Color.fromRGBO(204, 205, 206, 1)
                                     .withOpacity(0.5),
-                                offset: Offset(0, 3),
-                              )
+                              ),
                             ],
-                            borderRadius: BorderRadius.circular(80.0),
-                            gradient: LinearGradient(
-                              colors: [
-                                Color.fromRGBO(100, 181, 246, 1),
-                                Color.fromRGBO(60, 155, 237, 1),
-                                Color.fromRGBO(32, 137, 229, 1),
-                              ],
-                            )),
-                        child: ElevatedButton(
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            ),
                           ),
-                          onPressed: () async {
-                            if (_formKey.currentState.validate()) {
-                              print("Validations Passed.");
+                          child: TextButton(
+                            onPressed: () async {
+                              if (_formKey.currentState.validate()) {
+                                print("Validations Passed.");
 
-                              // checking the credentials
-                              bool credentialExists = await checkCredentials(
-                                  emailController.text.toString(),
-                                  passwordController.text.toString());
+                                // checking the credentials
+                                bool credentialExists = await checkCredentials(
+                                    emailController.text.toString(),
+                                    passwordController.text.toString());
 
-                              // Setting up the info in profile page
-                              //getList();
+                                // Setting up the info in profile page
+                                //getList();
 
-                              await getPersonList(
-                                  emailController.text.toString());
-                              //await getEmail(emailController.text.toString());
+                                await getPersonList(
+                                    emailController.text.toString());
+                                //await getEmail(emailController.text.toString());
 
-                              if (credentialExists) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DashboardPage()));
+                                if (credentialExists) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DashboardPage()));
+                                }
                               }
-                            }
-                          },
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Color.fromRGBO(100, 181, 246, 1)),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(80.0),
-                              ))),
-                        ))
-                  ],
-                ),
-                SizedBox(height: 20),
-                Text(
-                  "Continue with social media",
-                  style: TextStyle(fontSize: 17),
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Image.asset("assets/fb.png", height: 100, width: 60),
-                  SizedBox(width: 30),
-                  Image.asset("assets/google.png", height: 100, width: 50),
-                ]),
-                Container(
-                  padding: EdgeInsets.only(top: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Don't have an account?",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      //SizedBox(width: 10),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpPage()));
-                        },
-                        child: Text(" Sign Up",
-                            style: TextStyle(
-                                color: Colors.blue[900], fontSize: 20)),
-                      ),
-                    ],
+                            },
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    Color.fromRGBO(100, 181, 246, 1)),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(80.0),
+                                ))),
+                          ),
+                        ),
+                        SizedBox(height: 15),
+                        Container(
+                          child: Text(
+                            'Continue with social media',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 17,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/fb.png',
+                              height: 70,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Image.asset(
+                              'assets/google.png',
+                              height: 60,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              " Don't have an Account?",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignUpPage()));
+                                },
+                                child: Text(
+                                  'Sign Up',
+                                  style: TextStyle(
+                                      color: Colors.blue[900],
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    )));
+          )),
+    );
   }
 }

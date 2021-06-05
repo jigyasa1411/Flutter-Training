@@ -7,9 +7,9 @@ class GalleryPage extends StatefulWidget {
 
 class _State extends State<GalleryPage> {
   List img = [
-    "assets/GalleryImages/image1.jpg",
-    "assets/GalleryImages/image2.jpg",
     "assets/GalleryImages/image3.jpg",
+    "assets/GalleryImages/image2.jpg",
+    "assets/GalleryImages/image1.jpg",
     "assets/GalleryImages/image4.jpg",
     "assets/GalleryImages/image5.jpg",
     "assets/GalleryImages/image6.jpg",
@@ -31,10 +31,11 @@ class _State extends State<GalleryPage> {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                     decoration: BoxDecoration(
-                      color: Colors.blue,
                       borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Image.asset(img[index]));
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30.0),
+                        child: Image.asset(img[index])));
               })),
     );
   }

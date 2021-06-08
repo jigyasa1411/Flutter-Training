@@ -19,7 +19,7 @@ class _WeatherPageState extends State<WeatherPage> {
   Future getData(String city) async {
     final params = {
       'q': city,
-      'appid': '2f8796eefe67558dc205b09dd336d022',
+      'appid': '666debcab45f763590f1a66d93cb227a',
       'units': 'metric'
     };
     final uri =

@@ -31,7 +31,7 @@ class Response {
   Response.fromJson(Map<String, dynamic> json) {
     coord = json['coord'] != null ? new Coord.fromJson(json['coord']) : null;
     if (json['weather'] != null) {
-      List<Weather> weather = [];
+      weather = [];
       json['weather'].forEach((v) {
         weather.add(new Weather.fromJson(v));
       });

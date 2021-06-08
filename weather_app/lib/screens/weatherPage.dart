@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:weather_app/Model/responseClass.dart';
-import 'package:weather_app/Model/weatherModel.dart';
+//import 'package:weather_app/Model/weatherModel.dart';
 
 class WeatherPage extends StatefulWidget {
   @override
@@ -13,9 +13,6 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
-  List<WeatherModel> weather = [];
-  int temp = 0;
-
   Future getData(String city) async {
     final params = {
       'q': city,
@@ -161,7 +158,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             ),
                           ),
                           Text(
-                            "Haze",
+                            _response.weather[0].description,
                             style: TextStyle(
                                 color: Color.fromRGBO(226, 243, 246, 1),
                                 fontSize: 20),
@@ -179,7 +176,7 @@ class _WeatherPageState extends State<WeatherPage> {
             ),
           );
         }
-        return CircularProgressIndicator();
+        return Scaffold(body: Container(child: CircularProgressIndicator()));
       },
     );
   }

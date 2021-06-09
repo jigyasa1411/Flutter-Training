@@ -1,3 +1,4 @@
+import 'package:firebase_app/screens/dashboardPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,10 +15,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<UserCredential> signInWithGoogle() async {
   // Trigger the authentication flow
-  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+  GoogleSignIn googleSignInobj = GoogleSignIn();
+  GoogleSignInAccount? account = await googleSignInobj.signIn();
 
   // Obtain the auth details from the request
-  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  GoogleSignInAuthentication? googleAuth = await account!.authentication;
 
   // Create a new credential
   final credential = GoogleAuthProvider.credential(
@@ -153,7 +155,15 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                           child: TextButton(
-                            onPressed: (){},
+                            onPressed: ()async{
+                               await signInWithGoogle();
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DashboardPage()));
+                              
+                            },
                             // onPressed: () async {
                             //   if (_formKey.currentState.validate()) {
                             //     print("Validations Passed.");

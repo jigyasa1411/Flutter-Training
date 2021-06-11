@@ -1,8 +1,11 @@
 
 
+import 'package:firebase_app/helper/authentication.dart';
+import 'package:firebase_app/helper/validationFunctions.dart';
+import 'package:firebase_app/models/user_model.dart';
+import 'package:firebase_app/screens/dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
+
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,56 +13,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  SignInAndSignOutAuthentication auth = new SignInAndSignOutAuthentication();
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
-  bool _isLoggedOut = true;
-
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ["email"]);
-
-  _login() async{
-    try{
-      await _googleSignIn.signIn();
-      setState(() {
-        _isLoggedOut = false;
-      });
-    }
-    catch(error)
-    {
-      print(error);
-    }
-  }
-
-  _logout(){
-    _googleSignIn.signOut();
-    setState(() {
-      _isLoggedOut = true;
-    });
-  }
-
-
-//   Future<UserCredential> signInWithGoogle() async {
-//   // Trigger the authentication flow
-//   GoogleSignIn googleSignInobj = GoogleSignIn();
-//   GoogleSignInAccount? account = await googleSignInobj.signIn();
-
-//   // Obtain the auth details from the request
-//   GoogleSignInAuthentication? googleAuth = await account!.authentication;
-
-//   // Create a new credential
-//   final credential = GoogleAuthProvider.credential(
-//     accessToken: googleAuth.accessToken,
-//     idToken: googleAuth.idToken,
-//   );
-
-//   UserCredential user = await FirebaseAuth.instance.signInWithCredential(credential);
-//   //List<String> userDetails = [user.user.toString(), user.additionalUserInfo.toString()];
   
-
-//   // Once signed in, return the UserCredential
-//   return user;
-// }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        child: _isLoggedOut?
+        child:
         Form(
             key: _formKey,
             child:Container(
@@ -139,9 +98,9 @@ class _LoginPageState extends State<LoginPage> {
                                       hintText: 'Email',
                                       hintStyle: TextStyle(color: Colors.black),
                                     ),
-                                    // validator: (value) {
-                                    //   return validateEmail(value);
-                                    // },
+                                    validator: (value) {
+                                      return validateEmail(value!);
+                                    },
                                     textInputAction: TextInputAction.next,
                                     onEditingComplete: () => node.nextFocus(),
                                   ),
@@ -161,9 +120,9 @@ class _LoginPageState extends State<LoginPage> {
                                       hintText: 'Password',
                                       hintStyle: TextStyle(color: Colors.black),
                                     ),
-                                    // validator: (value) {
-                                    //   return validatePassword(value);
-                                    // },
+                                    validator: (value) {
+                                      return validatePassword(value!);
+                                    },
                                     onEditingComplete: () => node.unfocus(),
                                   ),
                                 ),
@@ -186,35 +145,13 @@ class _LoginPageState extends State<LoginPage> {
                               ],
                             ),
                             child: TextButton(
-                              onPressed: (){},
+                              onPressed: () async{
+                                if(_formKey.currentState!.validate())
+                                print("Validated");
+                                print("Credentials doesn't exists. Sign Up with above credentials.");
+                              },
+                              
                         
-                                
-                              //},
-                              // onPressed: () async {
-                              //   if (_formKey.currentState.validate()) {
-                              //     print("Validations Passed.");
-      
-                              //     // checking the credentials
-                              //     bool credentialExists = await checkCredentials(
-                              //         emailController.text.toString(),
-                              //         passwordController.text.toString());
-      
-                              //     // Setting up the info in profile page
-                              //     //getList();
-      
-                              //     await getPersonList(
-                              //         emailController.text.toString());
-                              //     //await getEmail(emailController.text.toString());
-      
-                              //     if (credentialExists) {
-                              //       Navigator.push(
-                              //           context,
-                              //           MaterialPageRoute(
-                              //               builder: (context) =>
-                              //                   DashboardPage()));
-                              //     }
-                              //   }
-                              // },
                               child: Text(
                                 "Login",
                                 style: TextStyle(
@@ -245,29 +182,51 @@ class _LoginPageState extends State<LoginPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                'assets/fb.png',
-                                height: 70,
+                              TextButton(
+                                onPressed: ()async{
+                                  
+                                    UserModel userData = UserModel();
+                                  userData =  (await auth.facebookUserDetails())!;
+                                  if(userData.toString().isEmpty)
+                                  {
+                                    print("Error logging in");
+                                  }
+                                  else{
+                                  
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DashboardPage(userData)));
+                                  }
+                                  
+                                  
+
+                                },
+                                child: Image.asset(
+                                  'assets/fb.png',
+                                  height: 70,
+                                ),
                               ),
                               SizedBox(
                                 width: 15,
                               ),
                               TextButton(
                                 onPressed: ()async{
-                                  await _login();
-                                },
-                                // async{
-                                //   List<String> userDetails = await signInWithGoogle();
-                                //  //String userName = value.user.toString();
-                                //  //String userCred = value.additionalUserInfo.toString();
-                                // if(userDetails.isNotEmpty){
-                                //   Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //             builder: (context) =>
-                                //                 DashboardPage()));
-                                // }
-                               // },
+                                  UserModel userData = UserModel();
+                                  userData =  (await auth.googleUserDetails())!;
+                                  if(userData.toString().isEmpty)
+                                  {
+                                    print("Error logging in");
+                                  }
+                                  else{
+                                  
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DashboardPage(userData)));
+                                  }
+                                  },
+                                
                                 child: Image.asset(
                                   'assets/google.png',
                                   height: 60,
@@ -309,36 +268,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             //)
             )
-            : Center(
-        child: Container(
-          
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height:150),
-              Text(_googleSignIn.currentUser!.email),
-              Text(_googleSignIn.currentUser!.displayName.toString()),
-              
-              Image.network(
-                  _googleSignIn.currentUser!.photoUrl.toString(),
-
-                  height: 100,
-                  width: 100
-              ),
-
-              TextButton(onPressed: (){
-                _logout();
-                Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginPage()));
-              }, child: Text("Log Out"))
-            ],
-          ),
-        ),
-      ),
+            
       ),
     );
   }
